@@ -105,7 +105,7 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
         print(f'input_ids: {input_ids}')
         print(f'attention_mask: {attention_mask}')
         print(f'token_type_ids: {token_type_ids}')
-        # print(f'seq_label_ids: {seq_label_ids}')
+        print(f'intent_label_ids: {intent_label}')
         # print(f'token_label_ids: {token_label_ids}')
 
 
