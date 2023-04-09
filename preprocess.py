@@ -3,6 +3,7 @@ Created by xiedong
 @Date: 2023/4/9 20:17
 """
 import os.path
+import torch
 
 
 class InputExample:
@@ -71,10 +72,51 @@ class Processor:
         return examples
 
 
+def get_features(raw_examples, tokenizer, args):
+    features = []
+    for i, example in enumerate(raw_examples):
+        feature = convert_example_to_feature(i, example, tokenizer, args)
+        features.append(feature)
+
+    return features
+
+
+def convert_example_to_feature(ex_idx, example, tokenizer, args):
+    set_type = example.set_type
+    text = example.text
+    intent_label = example.intent_label
+    slot_labels = example.slot_labels
+
+    inputs = tokenizer.encode_plus(
+        text=text,
+        max_length=args.max_len,
+        padding='max_length',
+        truncation='only_first',
+        return_attention_mask=True,
+        return_token_type_ids=True,
+    )
+    input_ids = torch.tensor(inputs['input_ids'], requires_grad=False)
+    attention_mask = torch.tensor(inputs['attention_mask'], requires_grad=False)
+    token_type_ids = torch.tensor(inputs['token_type_ids'], requires_grad=False)
+
+    if ex_idx < 3:
+        print(f'*** {set_type}_example-{ex_idx} ***')
+        print(f'text: {text}')
+        print(f'input_ids: {input_ids}')
+        print(f'attention_mask: {attention_mask}')
+        print(f'token_type_ids: {token_type_ids}')
+        # print(f'seq_label_ids: {seq_label_ids}')
+        # print(f'token_label_ids: {token_label_ids}')
+
+
 if __name__ == '__main__':
     from config import Args
+    from transformers import BertTokenizer
 
     args = Args()
     processor = Processor()
     examples = processor.get_examples(args, 'train')
+    print()
+    tokenizer = BertTokenizer.from_pretrained(args.bert_dir)
+    features = get_features(examples, tokenizer, args)
     print()

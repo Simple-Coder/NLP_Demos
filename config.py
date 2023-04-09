@@ -55,7 +55,7 @@ class Args:
     hidden_size = 768
     intent_num_labels = len(intent_labels)
     slot_num_labels = len(slot_labels)
-    max_len = 32
+    max_len = 50
     batchsize = 64
     lr = 2e-5
     epoch = 10
