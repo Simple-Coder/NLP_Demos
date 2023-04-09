@@ -87,6 +87,14 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
     intent_label = example.intent_label
     slot_labels = example.slot_labels
 
+    # 超长截断
+    special_token_size = 2  # 2个特殊字符：CLS、SEP
+    if len(slot_labels) > args.max_len - special_token_size:
+        slot_labels = slot_labels[:(args.max_len - special_token_size)]
+
+    padding_len = args.max_len - len(slot_labels)
+    slot_labels_ids = [0] + slot_labels + [0] + ([0] * padding_len)
+
     inputs = tokenizer.encode_plus(
         text=text,
         max_length=args.max_len,
@@ -95,18 +103,26 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
         return_attention_mask=True,
         return_token_type_ids=True,
     )
-    input_ids = torch.tensor(inputs['input_ids'], requires_grad=False)
-    attention_mask = torch.tensor(inputs['attention_mask'], requires_grad=False)
-    token_type_ids = torch.tensor(inputs['token_type_ids'], requires_grad=False)
-
+    input_ids = inputs['input_ids']
+    attention_mask = inputs['attention_mask']
+    token_type_ids = inputs['token_type_ids']
+    intent_label_ids = int(intent_label)
     if ex_idx < 3:
         print(f'*** {set_type}_example-{ex_idx} ***')
         print(f'text: {text}')
         print(f'input_ids: {input_ids}')
         print(f'attention_mask: {attention_mask}')
         print(f'token_type_ids: {token_type_ids}')
-        print(f'intent_label_ids: {intent_label}')
-        # print(f'token_label_ids: {token_label_ids}')
+        print(f'intent_label_ids: {intent_label_ids}')
+        print(f'slot_labels_ids: {slot_labels_ids}')
+
+    return InputFeature(
+        input_ids=input_ids,
+        attention_mask=attention_mask,
+        token_type_ids=token_type_ids,
+        intent_label_ids=intent_label_ids,
+        slot_label_ids=slot_labels_ids
+    )
 
 
 if __name__ == '__main__':
