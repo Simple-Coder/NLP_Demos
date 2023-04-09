@@ -6,13 +6,17 @@ Created by xiedong
 
 class Args:
     task = 'atis'
-    train_path = './data'
-    test_path = './data'
+    data_path = './data/'
     intent_labels_path = './data/' + task + '/intent_label.txt'
     slot_labels_path = './data/' + task + '/slot_label.txt'
     bert_dir = 'bert-base-uncased'
     save_dir = './checkpoints/'
     load_dir = './checkpoints/model.pt'
+
+    data_input_text_file = 'seq.in'
+    data_intent_label_file = 'label'
+    data_slot_labels_file = 'seq.out'
+
     do_train = False
     do_eval = False
     do_test = True
