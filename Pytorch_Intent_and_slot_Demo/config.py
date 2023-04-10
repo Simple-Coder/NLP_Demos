@@ -6,7 +6,7 @@ Created by xiedong
 
 class Args:
     task = 'atis'
-    data_path = './data/'
+    data_path = 'data/'
     intent_labels_path = './data/' + task + '/intent_label.txt'
     slot_labels_path = './data/' + task + '/slot_label.txt'
     bert_dir = 'bert-base-uncased'

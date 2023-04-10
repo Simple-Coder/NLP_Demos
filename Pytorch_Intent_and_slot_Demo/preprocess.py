@@ -3,7 +3,6 @@ Created by xiedong
 @Date: 2023/4/9 20:17
 """
 import os.path
-import torch
 
 
 class InputExample:
@@ -126,7 +125,7 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
 
 
 if __name__ == '__main__':
-    from config import Args
+    from Pytorch_Intent_and_slot_Demo.config import Args
     from transformers import BertTokenizer
 
     args = Args()
