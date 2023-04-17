@@ -2,6 +2,7 @@
 Created by xiedong
 @Date: 2023/4/9 20:04
 """
+import torch
 
 
 class Args:
@@ -23,7 +24,7 @@ class Args:
     do_save = True
     do_predict = True
     load_model = True
-    device = None
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     intent_label2id = {}
     id2_intentlabel = {}
     with open(intent_labels_path, 'r') as fp:
