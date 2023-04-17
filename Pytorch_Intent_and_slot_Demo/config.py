@@ -60,6 +60,7 @@ class Args:
     lr = 2e-5
     epoch = 10
     hidden_dropout_prob = 0.1
+    use_crf = True
 
 
 if __name__ == '__main__':
