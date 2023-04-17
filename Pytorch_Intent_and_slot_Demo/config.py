@@ -72,4 +72,5 @@ if __name__ == '__main__':
     print(args.slot_label2id)
     print(args.id2_slotlabel)
 
-    print()
+    print("-----intent_num_labels:", args.intent_num_labels)
+    print("-----slot_num_labels:", args.slot_num_labels)
