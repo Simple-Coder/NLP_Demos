@@ -3,7 +3,9 @@ Created by xiedong
 @Date: 2023/4/9 20:17
 """
 import os.path
+import logging
 
+logger = logging.getLogger(__name__)
 
 class InputExample:
     def __init__(self, set_type, text, intent_label, slot_labels):
@@ -107,13 +109,13 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
     token_type_ids = inputs['token_type_ids']
     intent_label_ids = int(intent_label)
     if ex_idx < 3:
-        print(f'*** {set_type}_example-{ex_idx} ***')
-        print(f'text: {text}')
-        print(f'input_ids: {input_ids}')
-        print(f'attention_mask: {attention_mask}')
-        print(f'token_type_ids: {token_type_ids}')
-        print(f'intent_label_ids: {intent_label_ids}')
-        print(f'slot_labels_ids: {slot_labels_ids}')
+        logger.info(f'*** {set_type}_example-{ex_idx} ***')
+        logger.info(f'text: {text}')
+        logger.info(f'input_ids: {input_ids}')
+        logger.info(f'attention_mask: {attention_mask}')
+        logger.info(f'token_type_ids: {token_type_ids}')
+        logger.info(f'intent_label_ids: {intent_label_ids}')
+        logger.info(f'slot_labels_ids: {slot_labels_ids}')
 
     return InputFeature(
         input_ids=input_ids,
@@ -125,10 +127,11 @@ def convert_example_to_feature(ex_idx, example, tokenizer, args):
 
 
 if __name__ == '__main__':
-    from Pytorch_Intent_and_slot_Demo.config import Args
+    from Pytorch_Intent_and_slot_Demo.config import Args,init_logger
     from transformers import BertTokenizer
 
     args = Args()
+    init_logger()
     processor = Processor()
     examples = processor.get_examples(args, 'train')
     print()
