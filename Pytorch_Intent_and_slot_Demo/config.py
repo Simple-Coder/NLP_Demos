@@ -6,6 +6,7 @@ import torch
 import logging
 
 
+
 class Args:
     task = 'atis'
     data_path = 'data/'
