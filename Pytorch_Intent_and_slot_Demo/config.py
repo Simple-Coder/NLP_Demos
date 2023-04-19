@@ -3,6 +3,7 @@ Created by xiedong
 @Date: 2023/4/9 20:04
 """
 import torch
+import logging
 
 
 class Args:
@@ -62,6 +63,12 @@ class Args:
     epoch = 10
     hidden_dropout_prob = 0.1
     use_crf = True
+
+
+def init_logger():
+    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
+                        datefmt='%m/%d/%Y %H:%M:%S',
+                        level=logging.INFO)
 
 
 if __name__ == '__main__':
