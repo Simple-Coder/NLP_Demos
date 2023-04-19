@@ -9,8 +9,11 @@ from transformers import BertModel
 from torch.utils.data import Dataset, DataLoader
 from dataset import *
 from model import *
+from config import Args, init_logger
 
 if __name__ == '__main__':
+    # 日志配置
+    init_logger()
     # 加载配置
     args = Args()
     # 加载bert
