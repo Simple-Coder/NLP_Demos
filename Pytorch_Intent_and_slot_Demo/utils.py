@@ -17,6 +17,10 @@ def init_logger():
                         level=logging.INFO)
 
 
+def load_tokenizer(args):
+    return MODEL_CLASSES[args.model_type][2].from_pretrained(args.model_name_or_path)
+
+
 def set_seed(args):
     random.seed(args.seed)
     np.random.seed(args.seed)

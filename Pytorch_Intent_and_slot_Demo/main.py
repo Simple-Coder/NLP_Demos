@@ -3,14 +3,16 @@ Created by xiedong
 @Date: 2023/4/19 21:46
 """
 import argparse
-from utils import MODEL_PATH_MAP, MODEL_CLASSES, init_logger, set_seed
+from utils import MODEL_PATH_MAP, MODEL_CLASSES, init_logger, set_seed, load_tokenizer
 
 
 def main(args):
     # 日志配置
     init_logger()
     # 设置随机种子
-    set_seed()
+    set_seed(args)
+
+    tokenizer = load_tokenizer(args)
 
 
 if __name__ == '__main__':
