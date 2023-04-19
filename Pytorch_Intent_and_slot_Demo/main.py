@@ -3,11 +3,12 @@ Created by xiedong
 @Date: 2023/4/19 21:46
 """
 import argparse
-from utils import MODEL_PATH_MAP, MODEL_CLASSES
+from utils import MODEL_PATH_MAP, MODEL_CLASSES, init_logger
 
 
 def main(args):
-    pass
+    # 日志配置
+    init_logger()
 
 
 if __name__ == '__main__':
