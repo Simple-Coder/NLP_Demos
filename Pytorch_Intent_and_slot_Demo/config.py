@@ -4,7 +4,9 @@ Created by xiedong
 """
 import torch
 import logging
-
+import random
+import numpy as np
+from transformers import BertModel
 
 
 class Args:
@@ -70,6 +72,18 @@ def init_logger():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S',
                         level=logging.INFO)
+
+
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if not args.no_cuda and torch.cuda.is_available():
+        torch.cuda.manual_seed_all(args.seed)
+
+
+def load_tokenizer(args):
+    return BertModel.from_pretrained(args.model_name)
 
 
 if __name__ == '__main__':

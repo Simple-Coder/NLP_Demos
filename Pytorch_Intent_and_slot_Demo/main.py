@@ -3,13 +3,20 @@ Created by xiedong
 @Date: 2023/4/17 11:20
 """
 import argparse
-from config import init_logger
+from config import init_logger, set_seed, load_tokenizer
 
 
+# --task atis --model_name bert-base-uncased --model_dir atis_model --do_train --do_eval
 def main(args):
     # 日志配置
     init_logger()
-    pass
+    # 设置随机种子
+    set_seed(args)
+
+    # 加载模型
+    tokenizer = load_tokenizer(args)
+
+    print("")
 
 
 if __name__ == '__main__':
