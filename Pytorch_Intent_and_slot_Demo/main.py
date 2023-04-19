@@ -3,9 +3,12 @@ Created by xiedong
 @Date: 2023/4/17 11:20
 """
 import argparse
+from config import init_logger
 
 
 def main(args):
+    # 日志配置
+    init_logger()
     pass
 
 
